@@ -1,0 +1,344 @@
+# VICE keyboard mapping file
+#
+# A Keyboard map is read in as patch to the current map.
+#
+# File format:
+# - comment lines start with '#'
+# - keyword lines start with '!keyword'
+# - normal lines have 'keysym/scancode row column shiftflag'
+#
+# Keywords and their lines are:
+# '!CLEAR'               clear whole table
+# '!INCLUDE filename'    read file as mapping file
+# '!LSHIFT row col'      left shift keyboard row/column
+# '!RSHIFT row col'      right shift keyboard row/column
+# '!VSHIFT shiftkey'     virtual shift key (RSHIFT or LSHIFT)
+# '!SHIFTL shiftkey'     shift lock key (RSHIFT or LSHIFT)
+#  for emulated keyboards that have only one shift key, set both LSHIFT
+#  and RSHIFT to the same row/col and use RSHIFT for VSHIFT and SHIFTL.
+# '!LCTRL row col'       left control keyboard row/column
+# '!VCTRL ctrlkey'       virtual control key (LCTRL)
+# '!LCBM row col'        left CBM keyboard row/column
+# '!VCBM cbmkey'         virtual CBM key (LCBM)
+# '!UNDEF keysym'        remove keysym from table
+#
+# Shiftflag can have these values, flags can be ORed to combine them:
+# 0x0000      0  key is not shifted for this keysym/scancode
+# 0x0001      1  key is combined with shift for this keysym/scancode
+# 0x0002      2  key is left shift on emulated machine
+# 0x0004      4  key is right shift on emulated machine (use only this one
+#                for emulated keyboards that have only one shift key)
+# 0x0008      8  key can be shifted or not with this keysym/scancode
+# 0x0010     16  deshift key for this keysym/scancode
+# 0x0020     32  another definition for this keysym/scancode follows
+# 0x0040     64  key is shift-lock on emulated machine
+# 0x0080    128  shift modifier required on host
+# 0x0100    256  key is used for an alternative keyboard mapping, e.g. C64 mode in x128
+# 0x0200    512  alt-r (alt-gr) modifier required on host
+# 0x0400   1024  ctrl modifier required on host
+# 0x0800   2048  key is combined with cbm for this keysym/scancode
+# 0x1000   4096  key is combined with ctrl for this keysym/scancode
+# 0x2000   8192  key is (left) cbm on emulated machine
+# 0x4000  16384  key is (left) ctrl on emulated machine
+#
+# Negative row values:
+# 'keysym -1 n' joystick keymap A, direction n
+# 'keysym -2 n' joystick keymap B, direction n
+# 'keysym -3 0' first RESTORE key
+# 'keysym -3 1' second RESTORE key
+# 'keysym -4 0' 40/80 column key (x128)
+# 'keysym -4 1' CAPS (ASCII/DIN) key (x128)
+# 'keysym -5 n' joyport keypad, key n (not supported in x128)
+#
+
+# Symbolic Mapping, US Layout, C64, GTK
+
+# C64 keyboard matrix:
+#
+#       +-----+-----+-----+-----+-----+-----+-----+-----+
+#       |Bit 0|Bit 1|Bit 2|Bit 3|Bit 4|Bit 5|Bit 6|Bit 7|
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 0| DEL |Retrn|C_L/R|  F7 |  F1 |  F3 |  F5 |C_U/D|
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 1| 3 # |  W  |  A  | 4 $ |  Z  |  S  |  E  | S_L |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 2| 5 % |  R  |  D  | 6 & |  C  |  F  |  T  |  X  |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 3| 7 ' |  Y  |  G  | 8 ( |  B  |  H  |  U  |  V  |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 4| 9 ) |  I  |  J  |  0  |  M  |  K  |  O  |  N  |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 5|  +  |  P  |  L  |  -  | . > | : [ |  @  | , < |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 6|POUND|  *  | ; ] | HOME| S_R |  =  | A_UP| / ? |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+# |Bit 7| 1 ! |A_LFT| CTRL| 2 " |SPACE|  C= |  Q  | R/S |
+# +-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+# C64 Keyboard layout:
+#
+#   arrow 1!  2"  3#  4$  5%  6&  7'  8(  9)  0   +   -   pound clr del     f1/f2
+#    ctrl   q   w   e   r   t   y   u   i   o   p   @   *   ^   restore     f3/f4
+#   r/s SL    a   s   d   f   g   h   j   k   l   :[  ;]  =   return        f5/f6
+#   CBM LS      z   x   c   v   b   n   m   ,<  .>  /?  RS  u/d l/r         f7/f8
+#                               space
+
+!CLEAR
+!LSHIFT 1 7
+!RSHIFT 6 4
+!VSHIFT RSHIFT
+!SHIFTL LSHIFT
+!LCBM 7 5
+!VCBM LCBM
+!LCTRL 7 2
+!VCTRL LCTRL
+
+# Macbook keyboard
+#
+#   esc    F1   F2   F3   F4   F5   F6   F7   F8   F9  F10  F11  F12  [pwr]
+#   ~`   !1   @2   #3   $4   %5   ^6   &7   *8   (9   )0   _-   +=   delete
+#   tab    Q    W    E    R    T    Y    U    I    O    P    {[   ]}   |\
+#   capslock A    S    D    F    G    H    J    K    L    ;:    "'   return
+#   shift     Z    X    C    V    B    N    M    <,   >.   ?/         shift
+#   fn  ctrl opt cmd [         space          ] cmd  opt    <-   ^/v   ->
+
+## Macbook Row 1
+
+Escape          7 7 8         # RUN/STOP
+F1              0 4 0
+F2              0 4 1
+F3              0 5 0
+F4              0 5 1
+F5              0 6 0
+F6              0 6 1
+F7              0 3 0
+F8              0 3 1
+F9             -3 0           # RESTORE
+#F11 - DO NOT USE! (reserved for mac)
+F12             6 3 8         # HOME / CLEAR
+
+## Machbook Row 2
+
+grave           7 1 0         # ` = left arrow
+asciitilde      6 6 1         # ~ = pi
+
+1               7 0 32        # 1
+1               7 0 3072      # control 1 = c= 1 (orange)
+exclam          7 0 1         # !
+exclamdown      7 0 4096      # option 1 = ctrl 1 (black)
+
+2               7 3 32        # 2
+2               7 3 3072      # control 2 = c= 2 (brown)
+at              5 6 16        # @
+trademark       7 3 4096      # option 2 = ctrl 2 (white)
+
+3               1 0 32        # 3
+3               1 0 3072      # control 3 = c= 3 (pink)
+numbersign      1 0 1         # #
+sterling        1 0 4096      # option 3 = ctrl 3 (red)
+
+4               1 3 32        # 4
+4               1 3 3072      # control 4 = c= 4 (dark gray)
+dollar          1 3 1         # $
+cent            1 3 4096      # option 4 = ctrl 4 (cyan)
+
+5               2 0 32        # 5
+5               2 0 3072      # control 5 = c= 5 (medium gray)
+percent         2 0 1         # %
+infinity        2 0 4096      # option 5 = ctrl 5 (purple)
+
+6               2 3 32        # 6
+6               2 3 3072      # control 6 = c= 6 (light green)
+asciicircum     6 6 16        # ^ = up arrow
+section         2 3 4096      # option 6 = ctrl 6 (green)
+
+7               3 0 32        # 7
+7               3 0 3072      # control 7 = c= 7 (light blue)
+ampersand       2 3 1         # &
+paragraph       3 0 4096      # option 7 = ctrl 7 (blue)
+
+8               3 3 32        # 8
+8               3 3 3072      # control 8 = c= 8 (light gray)
+asterisk        6 1 16        # *
+enfilledcircbullet 3 3 4096   # option 8 = ctrl 8 (yellow)
+
+9               4 0 0         # 9
+parenleft       3 3 1         # (
+ordfeminine     4 0 4096      # option 9 = ctrl 9 (rvs on)
+
+0               4 3 0         # 0
+parenright      4 0 1         # )
+masculine       4 3 4096      # option 0 = ctrl 0 (rvs off)
+
+minus           5 3 32         # -
+minus           5 3 3072       # control - = c= -
+underscore      5 6 2064       # c= @
+
+equal           6 5 32         # =
+equal           5 0 1025       # control = = shift +
+plus            5 0 16         # +
+
+BackSpace       0 0 8          # inst/del
+
+## Macbook Row 3
+
+Tab             7 4 0         # space
+ISO_Left_Tab    0 2 1         # shift CRSR LEFT/right
+
+q               7 6 32        # Q
+q               7 6 3072      # control Q = c= Q
+Q               7 6 1         # shift Q
+
+w               1 1 32        # W
+w               1 1 3072      # control W = c= W
+W               1 1 1         # shift W
+
+e               1 6 32        # E
+e               1 6 3072      # control E = c= E
+E               1 6 1         # shift E
+
+r               2 1 32        # R
+r               2 1 3072      # control R = c= R
+R               2 1 1         # shift R
+
+t               2 6 32        # T
+t               2 6 3072      # control T = c= T
+T               2 6 1         # shift T
+
+y               3 1 32        # Y
+y               3 1 3072      # control Y = c= Y
+Y               3 1 1         # shift Y
+
+u               3 6 32        # U
+u               3 6 3072      # control U = c= U
+U               3 6 1         # shift U
+
+i               4 1 32        # I
+i               4 1 3072      # control I = c= I
+I               4 1 1         # shift I
+dead_circumflex 4 1 4096      # option I = ctrl I (enable upper/lower switch)
+
+o               4 6 32        # O
+o               4 6 3072      # control O = c= O
+O               4 6 1         # shift O
+
+p               5 1 32        # P
+p               5 1 3072      # control P = c= P
+P               5 1 1         # shift P
+
+bracketleft     5 5 33        # [
+bracketleft     5 0 3072      # control [ = c= +
+braceleft       6 0 2064      # c= pound
+
+bracketright    6 2 33        # ]
+bracketright    6 1 3072      # control ] = c= *
+braceright      6 0 1         # shift pound
+
+backslash       4 4 33         # shift M
+backslash       6 0 1024       # control \ = pound
+bar             5 3 8          # shift -
+
+# Macbook Row 4
+
+Caps_Lock       1 7 64         # shift lock
+
+a               1 2 32         # A
+a               1 2 3072       # control A = c= A
+A               1 2 1          # shift A
+
+s               1 5 32         # S
+s               1 5 3072       # control S = c= S
+S               1 5 1          # shift S
+ssharp          1 5 4096       # option S = ctrl S (HOME)
+
+d               2 2 32         # D
+d               2 2 3072       # control D = c= D
+D               2 2 1          # shift D
+partialderivative 2 2 4096     # option D = control D
+
+f               2 5 32         # F
+f               2 5 3072       # control F = c= F
+F               2 5 1          # shift F
+function        2 5 4096       # option F = control F
+
+g               3 2 32         # G
+g               3 2 3072       # control G = c= G
+G               3 2 1          # shift G
+
+h               3 5 32         # H
+h               3 5 3072       # control H = c= H
+H               3 5 1          # shift H
+abovedot        3 5 4096       # option H = ctrl H (disable upper/lower switch)
+
+j               4 2 32         # J
+j               4 2 3072       # control J = c= J
+J               4 2 1          # shift J
+
+k               4 5 32         # K
+k               4 5 3072       # control K = c= K
+K               4 5 1          # shift K
+
+l               5 2 32         # L
+l               5 2 3072       # control L = c= L
+L               5 2 1          # shift L
+
+semicolon       6 2 32         # ;
+semicolon       5 6 1025       # control ; = shift @
+colon           5 5 16         # :
+
+apostrophe      3 0 33         # '
+apostrophe      6 1 1025       # control ' = shift *
+quotedbl        7 3 1          # "
+
+Return          0 1 8          # Return
+
+# Macbook Row 5
+
+Shift_L         1 7 34         # shift (left)
+Shift_L         1 7 3073       # control shift = c= shift (toggle upper/lower)
+
+z               1 4 32         # Z
+z               1 4 3072       # control Z = c= Z
+Z               1 4 1          # shift Z
+Greek_OMEGA     2 7 4096       # option Z = control X
+
+x               2 7 32         # X
+x               2 7 3072       # control X = c= X
+X               2 7 1          # shift X
+
+c               2 4 32         # C
+c               2 4 3072       # control C = c= C
+C               2 4 1          # shift C
+ccedilla        2 4 4096       # option C = ctrl C (STOP)
+
+v               3 7 32         # V
+v               3 7 3072       # control V = c= V
+V               3 7 1          # shift V
+
+b               3 4 32         # B
+b               3 4 3072       # control B = c= B
+B               3 4 1          # shift B
+
+n               4 7 32         # N
+n               4 7 3072       # control N = c= N
+N               4 7 1          # shift N
+dead_perispomeni 4 7 4096      # option N = ctrl N (to lower)
+
+m               4 4 32         # M
+m               4 4 3072       # control M = c= M
+M               4 4 1          # shift M
+mu              4 4 4096       # option M = ctrl M (RETURN)
+
+comma           5 7 0          # ,
+less            5 7 8          # <
+
+period          5 4 32         # .
+greater         5 4 8          # >
+
+slash           6 7 0          # /
+question        6 7 8          # ?
+
+Shift_R         6 4 36         # shift (right)
+Shift_R         6 4 3073       # control shift = c= shift - toggle upper/lower
+
+	
